@@ -20,15 +20,11 @@ firebaseConfig = {
     "measurementId": "G-PLXNTPP82Y"
 }
 
-date_string = dt.datetime.now().strftime("%Y-%m-%d")
-time_string = dt.datetime.now().strftime("%H:%M:%S")
 firebase = pyrebase.initialize_app(firebaseConfig)
 storage = firebase.storage()
 smhc_database = firebase.database()
 upload_image_normal = "image-opencv-normal.jpg"
 upload_image_danger = "image-opencv-danger.jpg"
-prove_image_normal = "Prove-Normal/image-{}-{}.png".format(date_string, time_string)
-prove_image_danger = "Prove-Danger/image-{}-{}.png".format(date_string, time_string)
 
 faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 video_capture = cv2.VideoCapture(0)
@@ -58,30 +54,40 @@ class ExpressionDetection(object):
 
 model = ExpressionDetection("model.json", "weights.h5")
 t = dt.datetime.now()
-interval = 10
+interval = 5
 danger_state = 0
 
 def take_capture_1(ssan):
     cv2.imwrite(upload_image_normal, ssan)
     storage.child(upload_image_normal).put(upload_image_normal)
+    time.sleep(5)
     storage.child(prove_image_normal).put(upload_image_normal)
     #Push and update the database normal
+    #"""
     image_url = storage.child(upload_image_normal).get_url(user['idToken'])
     data_database={"Status": "Normal", "Date": date_string, "Time": time_string, "image_url": image_url}
     smhc_database.child("OpenCV-Normal").set(data_database)
-    print ("Success Push to Database Normal")
+    print ("Success Push to Database OpenCV-Normal")
+    #"""
 
 def take_capture_2(ssan):
     cv2.imwrite('image-opencv-danger.jpg', ssan)
     storage.child(upload_image_danger).put(upload_image_danger)
     storage.child(prove_image_danger).put(upload_image_danger)
+    time.sleep(5)
     #Push and update the database normal
+    #"""
     image_url = storage.child(upload_image_danger).get_url(user['idToken'])
     data_database={"Status": "Danger", "Date": date_string, "Time": time_string, "image_url": image_url}
     smhc_database.child("OpenCV-Danger").set(data_database)
-    print ("Success Push to Database Danger")
+    print ("Success Push to Database OpenCV-Danger")
+    #"""
 
 while True:
+    date_string = dt.datetime.now().strftime("%Y-%m-%d")
+    time_string = dt.datetime.now().strftime("%H:%M:%S")
+    prove_image_normal = "Prove-Normal/image-{}-{}.png".format(date_string, time_string)
+    prove_image_danger = "Prove-Danger/image-{}-{}.png".format(date_string, time_string)
     # Take frame-by-frame
     ret, frame = video_capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -105,11 +111,11 @@ while True:
     current_time = dt.datetime.now()
     delta = current_time-t
     # Capture Webcam
-    if delta.seconds >= 10:
+    if delta.seconds >= 5:
         # Capture danger
         if danger_state > 400:
             take_capture_2(frame)
-            print (danger_state)
+            print ("Total danger current state: {}".format(danger_state))
             danger_state = 0
             t = current_time.now()
         else:
