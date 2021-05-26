@@ -1,15 +1,44 @@
 import cv2
 import os
 import time
-from tensorflow.keras.models import model_from_json
+import pyrebase
 import tensorflow as tf
 import numpy as np
 import datetime as dt
+from tensorflow.keras.models import model_from_json
 
-#start = time.time()
+
+#Firebase config
+firebaseConfig = {
+    "apiKey": "AIzaSyDfzAPahVi11ijBB7_KiD53s3K2_UF4uBo",
+    "authDomain": "logical-seat-314215.firebaseapp.com",
+    "databaseURL": "https://logical-seat-314215-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "projectId": "logical-seat-314215",
+    "storageBucket": "logical-seat-314215.appspot.com",
+    "messagingSenderId": "390165501434",
+    "appId": "1:390165501434:web:8103c9767e82aedd92c043",
+    "measurementId": "G-PLXNTPP82Y"
+}
+
+date_string = dt.datetime.now().strftime("%Y-%m-%d")
+time_string = dt.datetime.now().strftime("%H:%M:%S")
+firebase = pyrebase.initialize_app(firebaseConfig)
+storage = firebase.storage()
+smhc_database = firebase.database()
+upload_image_normal = "image-opencv-normal.jpg"
+upload_image_danger = "image-opencv-danger.jpg"
+prove_image_normal = "Prove-Normal/image-{}-{}.png".format(date_string, time_string)
+prove_image_danger = "Prove-Danger/image-{}-{}.png".format(date_string, time_string)
+
 faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 video_capture = cv2.VideoCapture(0)
 mask_on = False
+
+# Firebase admin account
+auth = firebase.auth()
+email = "<email address>"
+password = "<email password>"
+user = auth.sign_in_with_email_and_password(email, password)
 
 class ExpressionDetection(object):
 
@@ -33,18 +62,32 @@ interval = 10
 danger_state = 0
 
 def take_capture_1(ssan):
-    cv2.imwrite('image-opencv-normal.jpg', ssan)
+    cv2.imwrite(upload_image_normal, ssan)
+    storage.child(upload_image_normal).put(upload_image_normal)
+    storage.child(prove_image_normal).put(upload_image_normal)
+    #Push and update the database normal
+    image_url = storage.child(upload_image_normal).get_url(user['idToken'])
+    data_database={"Status": "Normal", "Date": date_string, "Time": time_string, "image_url": image_url}
+    smhc_database.child("OpenCV-Normal").set(data_database)
+    print ("Success Push to Database Normal")
 
 def take_capture_2(ssan):
     cv2.imwrite('image-opencv-danger.jpg', ssan)
+    storage.child(upload_image_danger).put(upload_image_danger)
+    storage.child(prove_image_danger).put(upload_image_danger)
+    #Push and update the database normal
+    image_url = storage.child(upload_image_danger).get_url(user['idToken'])
+    data_database={"Status": "Danger", "Date": date_string, "Time": time_string, "image_url": image_url}
+    smhc_database.child("OpenCV-Danger").set(data_database)
+    print ("Success Push to Database Danger")
 
 while True:
     # Take frame-by-frame
     ret, frame = video_capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    wajah = faceCascade.detectMultiScale(gray, 1.1, 5)
+    face = faceCascade.detectMultiScale(gray, 1.1, 5)
     # Face box in camera
-    for (x, y, w, h) in wajah:
+    for (x, y, w, h) in face:
         roi_gray = gray[y:y + h, x:x + w]
         roi_input = cv2.resize(roi_gray, (48, 48))
         
@@ -56,18 +99,22 @@ while True:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
         cv2.putText(frame, pred, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 5)
 
-    cv2.putText(frame, 'Face Detected : '+ str(len(wajah)), (30, 30), cv2.FONT_HERSHEY_SIMPLEX,  1, (0, 255, 0), 2)
+    cv2.putText(frame, 'Face Detected : '+ str(len(face)), (30, 30), cv2.FONT_HERSHEY_SIMPLEX,  1, (0, 255, 0), 2)
     cv2.imshow('Video', frame)
 
     current_time = dt.datetime.now()
     delta = current_time-t
+    # Capture Webcam
     if delta.seconds >= 10:
-        take_capture_1(frame)
-        t = current_time.now()
-
-    if danger_state > 0:
-        take_capture_2(frame)
-        danger_state = 0
+        # Capture danger
+        if danger_state > 400:
+            take_capture_2(frame)
+            print (danger_state)
+            danger_state = 0
+            t = current_time.now()
+        else:
+            take_capture_1(frame)
+            t = current_time.now()
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
