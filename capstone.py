@@ -32,8 +32,11 @@ t = dt.datetime.now()
 interval = 10
 danger_state = 0
 
-def ambil_ss(ssan):
-    cv2.imwrite('image-opencv.jpg', ssan)
+def take_capture_1(ssan):
+    cv2.imwrite('image-opencv-normal.jpg', ssan)
+
+def take_capture_2(ssan):
+    cv2.imwrite('image-opencv-danger.jpg', ssan)
 
 while True:
     # Take frame-by-frame
@@ -59,11 +62,11 @@ while True:
     current_time = dt.datetime.now()
     delta = current_time-t
     if delta.seconds >= 10:
-        ambil_ss(frame)
+        take_capture_1(frame)
         t = current_time.now()
 
     if danger_state > 0:
-        ambil_ss(frame)
+        take_capture_2(frame)
         danger_state = 0
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
