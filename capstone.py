@@ -5,6 +5,7 @@ import pyrebase
 import tensorflow as tf
 import numpy as np
 import datetime as dt
+import FCMManager as fcm
 from tensorflow.keras.models import model_from_json
 
 
@@ -35,6 +36,8 @@ auth = firebase.auth()
 email = "<email address>"
 password = "<email password>"
 user = auth.sign_in_with_email_and_password(email, password)
+
+FCM_tokens = [""]
 
 class ExpressionDetection(object):
 
@@ -116,6 +119,7 @@ while True:
         if danger_state > 400:
             take_capture_2(frame)
             print ("Total danger current state: {}".format(danger_state))
+            fcm.sendPush("Warning", "The rate of suicide increases, the person need help or counseling", FCM_tokens)
             danger_state = 0
             t = current_time.now()
         else:
