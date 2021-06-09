@@ -11,21 +11,4 @@
     <string name="doctors_name">Doctor Name</string>
     <string name="doctors_address">Doctor Address</string>
     <string name="chat">Connect Via Whatsapp</string>
-    <string-array name="data_name">
-        <item>Salsabila</item>
-        <item>Gungwik</item>
-        <item>Ari</item>
-        <item>Prananda</item>
-        <item>Andre</item>
-        <item>Jhon</item>
-    </string-array>
-
-    <string-array name="data_address">
-        <item>Jakarta</item>
-        <item>Bali</item>
-        <item>Lombok</item>
-        <item>Surabaya</item>
-        <item>Bandung</item>
-        <item>Medan</item>
-    </string-array>
 </resources>

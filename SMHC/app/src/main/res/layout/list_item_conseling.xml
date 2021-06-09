@@ -22,7 +22,6 @@
         android:layout_margin="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_tostartOf="@id/frame_ListNews"
         android:src="@drawable/profile_docter"/>
 
     <LinearLayout
