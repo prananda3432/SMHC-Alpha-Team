@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="PrimaryBlueStart">#153d56</color>
+    <color name="PrimaryBlueEnd">#bdecfe</color>
+    <color name="PrimeryBlue">#91d1f4</color>
+
+    <color name="ColorPrimary">#3F15B6</color>
+    <color name="ColorWhite">#FFFFFF</color>
+    <color name="ColorBlack">#000000</color>
+    <color name="Colorstartblue">#09C6DF</color>
+    <color name="Colorendblue">#0BCCE6</color>
+    <color name="ColorsecondaryLight">#00B7FF</color>
+    <color name="ColorsecondaryDark">#0000b3</color>
+
+    <color name="TextColorBlack">#000000</color>
+    <color name="TextPrimaryBlue">#1d5de6</color>
+    <color name="TextColorprimary">#0079BA</color>
+    <color name="TextColorwhite">#ffffff</color>
+</resources>

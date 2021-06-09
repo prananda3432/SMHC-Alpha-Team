@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">SMHC</string>
+    <string name="title_home">Home</string>
+    <string name="title_counselling">Counselling</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Suicide might be considered as one of the most serious social health problems in the world caused by many possibilities. According to Pusat Data dan Informasi Kementerian Kesehatan in Indonesia, there are around +-1.800 cases for each year. Because of that problem, our team decide to create an innovation that hopefully can help prevent suicide cases by detecting the facial expression and the current position of that person. We are considering whether this innovation can give impact to victims who are planning to commit suicide and provide solutions to prevent suicides.</string>
+    <string name="title_aboutus">AboutUs</string>
+    <string name="change_language_settings">Change Language Settings</string>
+    <string name="doctors_name">Doctor Name</string>
+    <string name="doctors_address">Doctor Address</string>
+    <string name="chat">Connect Via Whatsapp</string>
+    <string-array name="data_name">
+        <item>Salsabila</item>
+        <item>Gungwik</item>
+        <item>Ari</item>
+        <item>Prananda</item>
+        <item>Andre</item>
+        <item>Jhon</item>
+    </string-array>
+
+    <string-array name="data_address">
+        <item>Jakarta</item>
+        <item>Bali</item>
+        <item>Lombok</item>
+        <item>Surabaya</item>
+        <item>Bandung</item>
+        <item>Medan</item>
+    </string-array>
+</resources>

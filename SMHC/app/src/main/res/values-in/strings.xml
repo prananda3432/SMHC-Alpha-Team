@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HomePage</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_counselling">Konseling</string>
+    <string name="title_notifications">Notifikasi</string>
+    <string name="title_aboutus">Tentang Kami</string>
+    <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
+    <string name="doctors_name">Nama Dokter</string>
+    <string name="doctors_address">Alamat Dokter</string>
+    <string name="chat">Hubungi melalui Whatsapp</string>
+</resources>

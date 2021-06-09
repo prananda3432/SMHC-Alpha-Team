@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "390165501434",
+    "firebase_url": "https://logical-seat-314215-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "logical-seat-314215",
+    "storage_bucket": "logical-seat-314215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390165501434:android:a66203704babcebc92c043",
+        "android_client_info": {
+          "package_name": "com.bangkit.smhc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390165501434-vgi5v99vm0jknaifjdtforqhirliu4k3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJ5XeI7E-5IfPPYh5kE3VV7mhmnEANRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390165501434-vgi5v99vm0jknaifjdtforqhirliu4k3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390165501434:android:dbf862bff3f5f8e892c043",
+        "android_client_info": {
+          "package_name": "com.kungi.smhc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390165501434-vgi5v99vm0jknaifjdtforqhirliu4k3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJ5XeI7E-5IfPPYh5kE3VV7mhmnEANRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390165501434-vgi5v99vm0jknaifjdtforqhirliu4k3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
